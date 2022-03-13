@@ -219,7 +219,11 @@ ve.ce.LinearDeleteKeyDownHandler.static.execute = function ( surface, e ) {
 			// just select the node and cancel the deletion.
 			startNode = documentModel.getDocumentNode().getNodeFromOffset( offset + 1 );
 			if ( startNode.isFocusable() ) {
-				surface.getModel().setLinearSelection( startNode.getOuterRange() );
+				if (startNode.length == 0) {
+					console.log("prevent selection of element with len " + startNode.length);
+					//console.log( startNode );
+				}
+				if (startNode.length != 0) surface.getModel().setLinearSelection( startNode.getOuterRange() );
 				e.preventDefault();
 				return true;
 			}
